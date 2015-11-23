@@ -23,12 +23,12 @@ Soon there should be an official version available that's compatible with curren
 
 Exposes
 
-```/etc/logstash/conf.d```
+  /etc/logstash/conf.d
 
 So you can configure logstash however you wish. For easy testing with current setup,
 you can most likely link this container with something like
 
-```fiunchinho/docker-filebeat```
+  fiunchinho/docker-filebeat
 
 for quick testing.
 
