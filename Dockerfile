@@ -16,9 +16,12 @@ ENV REFRESHED_AT 2015-11-22
 ###############################################################################
 #                                INSTALLATION
 ###############################################################################
-#RUN ["/bin/sh", "-c", "cd /opt/logstash;./bin/plugin install --no-verify --version 2.0.2 logstash-codec-multiline"]
-RUN ["/bin/sh", "-c", "cd /opt/logstash;./bin/plugin install --no-verify --version 2.0.1 logstash-input-beats"]
-#RUN ["/bin/sh", "-c", "cd /opt/logstash;./bin/plugin update logstash-input-beats"]
+COPY ./logstash-input-beats-2.0.0.gem /tmp/logstash-input-beats.gem
+COPY ./logstash-codec-multiline-2.0.4.gem /tmp/logstash-codec-multiline-2.0.4.gem
+RUN ["/bin/sh", "-c", "cd /opt/logstash;./bin/plugin install --no-verify /tmp/logstash-codec-multiline-2.0.4.gem"]
+RUN ["/bin/sh", "-c", "cd /opt/logstash;./bin/plugin install --no-verify /tmp/logstash-input-beats.gem"]
+RUN rm /tmp/logstash-input-beats.gem
+RUN rm /tmp/logstash-codec-multiline-2.0.4.gem
 
 ###############################################################################
 #                               CONFIGURATION
@@ -26,7 +29,7 @@ RUN ["/bin/sh", "-c", "cd /opt/logstash;./bin/plugin install --no-verify --versi
 # filters
 
 ADD ./logstash-conf.d/31-beats-input.conf /etc/logstash/conf.d/31-beats-input.conf
-ADD ./logstash-conf./31-beats-output-conf /etc/logstash/conf.d/32-beats-output.conf
+ADD ./logstash-conf.d/32-beats-output.conf /etc/logstash/conf.d/32-beats-output.conf
 
 
 
@@ -34,10 +37,7 @@ ADD ./logstash-conf./31-beats-output-conf /etc/logstash/conf.d/32-beats-output.c
 #                                   START
 ###############################################################################
 
-ADD ./start.sh /usr/local/bin/start.sh
-RUN chmod +x /usr/local/bin/start.sh
-
 EXPOSE 5601 9200 9300 5000 5044
-VOLUME /var/lib/elasticsearch
+VOLUME /etc/logstash/conf.d
 
 CMD [ "/usr/local/bin/start.sh" ]
