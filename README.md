@@ -13,22 +13,22 @@ Soon there should be an official version available that's compatible with curren
 
 ## Exposed ports
 
-5601 - Kibana
-9200 - Elastic search JSON interface
-9300 - Elastic search transport
-5000 - Logstash
-5044 - Logstash beats input port
+* 5601 - Kibana
+* 9200 - Elastic search JSON interface
+* 9300 - Elastic search transport
+* 5000 - Logstash
+* 5044 - Logstash beats input port
 
 ## Customisation
 
 Exposes
 
- /etc/logstash/conf.d
+```/etc/logstash/conf.d```
 
 So you can configure logstash however you wish. For easy testing with current setup,
 you can most likely link this container with something like
 
- fiunchinho/docker-filebeat
+```fiunchinho/docker-filebeat```
 
 for quick testing.
 
