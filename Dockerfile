@@ -9,7 +9,7 @@
 # Run with:
 # docker run -p 5601:5601 -p 9200:9200 -p 5000:5000 -p 5044:5044 -it --name elk <repo-user>/elk
 
-FROM sebp/elk
+FROM sebp/elk:latest
 MAINTAINER Juha Heimonen / flowa.fi
 ENV REFRESHED_AT 2015-11-22
 
